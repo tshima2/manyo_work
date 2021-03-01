@@ -1,0 +1,6 @@
+<p id="notice"><%= notice %></p>
+<h1>詳細画面</h1>
+<p>名称：<%= @task.name %></p>
+<p>内容: <%= @task.description %></p>
+<%= link_to '編集', edit_task_path(@task) %>
+<%= link_to '一覧', tasks_path %>
