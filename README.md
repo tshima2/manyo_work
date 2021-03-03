@@ -36,6 +36,6 @@
 ## データベース移行 ##
 >      $ heroku run rails db:migrate
 
-### 環境変数を設定する ###
+## 環境変数を設定する ##
 >     heroku config:set BASIC_AUTH_USER=xxx
 >     heroku config:set BASIC_AUTH_PASSWQORD=yyy

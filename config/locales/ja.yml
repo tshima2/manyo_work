@@ -1,6 +1,14 @@
 ja:
   application:
     msg_err_exists: '件のエラーがあります。'
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: 'タスク名称は必須です'
+              taken: 'その名称は既に登録済みです'	      
   tasks:
     label_index: 'タスク一覧'
     label_new: '新規作成'

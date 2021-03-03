@@ -1,6 +1,14 @@
 en:
   application:
     msg_err_exists: ' errors exists.'
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: 'attribute name is needed.'
+              taken: 'specified name is already registered.'
   tasks:
     label_index: 'Task List'
     label_new: 'New Task'
