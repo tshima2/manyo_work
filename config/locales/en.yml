@@ -3,7 +3,8 @@ en:
     msg_err_exists: ' errors exists.'
   tasks:
     label_index: 'Task List'
-    label_new: 'New Task'        
+    label_new: 'New Task'
+    label_show: 'Show Task'    
     label_name: 'Name'
     label_description: 'Description'
     label_link_index: 'Task List'    

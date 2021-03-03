@@ -3,7 +3,8 @@ ja:
     msg_err_exists: '件のエラーがあります。'
   tasks:
     label_index: 'タスク一覧'
-    label_new: '新規作成'    
+    label_new: '新規作成'
+    label_show: 'タスク詳細'        
     label_name: 'タスク名称'
     label_description: 'タスク説明'
     label_link_index: '一覧'        
