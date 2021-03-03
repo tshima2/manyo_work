@@ -1,24 +1,10 @@
-# README
+# テーブルスキーマ 2021.3.1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+以下にモデル名, カラム名, データ型を記載します。（ER図: docs/ER_diagram.png）
+- User name:string, email:string
+- Task name:string, description:text, user:references, deadline:datetime, priority:integer, status:string
+- Label name:string, image:text
+- Labelling task:references, label:references
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

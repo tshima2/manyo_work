@@ -1,0 +1,6 @@
+<p id="notice"><%= notice %></p>
+<h2><%= t('tasks.label_show') %></h2>
+<p><%= t('tasks.label_name') %>：<%= @task.name %></p>
+<p><%= t('tasks.label_description') %>: <%= @task.description %></p>
+<%= link_to t('tasks.label_link_edit'), edit_task_path(@task) %>
+<%= link_to t('tasks.label_link_index'), tasks_path %>
