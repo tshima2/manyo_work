@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
   def index
-    @tasks=Task.all.order(updated_at: 'DESC')
+#    @tasks=Task.all.order(updated_at: 'DESC')
+    @tasks=Task.all.order(created_at: 'DESC')    
   end
   
   def new
@@ -19,7 +20,7 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     elsif @task.save
-      redirect_to tasks_path, notice: t('tasks.msg_create_task_success')
+      redirect_to tasks_path, notice: t('tasks.msg_create_success')
     else
       render :new
     end
@@ -27,7 +28,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_path, notice: t('tasks.msg_update_task_success')
+      redirect_to task_path, notice: t('tasks.msg_update_success')
     else
       render :edit
     end
