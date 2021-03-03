@@ -12,13 +12,13 @@
 
 <div class="task_name">
   <%= form.label :name, value: t('tasks.label_name') %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name, id: 'new_task_name' %>
 </div>
 <div class="task_description">
   <%= form.label :description, value: t('tasks.label_description') %>
-  <%= form.text_field :description %>
+  <%= form.text_field :description, id:'new_task_description' %>
 </div>
-<%= form.submit t('tasks.label_submit_new') %>
+<%= form.submit t('tasks.label_submit_new'), id:'new_task_submit' %>
 <% end %>
 
 <%= link_to t('tasks.label_link_back'), tasks_path %>

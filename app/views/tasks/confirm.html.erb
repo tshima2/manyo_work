@@ -4,6 +4,6 @@
   <%= form.hidden_field :description %>
   <p>名称:<%= @task.name %></p>
   <p>内容:<%= @task.description %></p>
-  <%= form.submit "登録する" %>
-  <%= form.submit "戻る", name: 'back' %>
+  <%= form.submit "登録する", id:"confirm_task_submit" %>
+  <%= form.submit "戻る", name: "back", id: "confirm_back_task_submit" %>
 <% end %>
