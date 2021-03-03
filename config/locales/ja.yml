@@ -20,6 +20,7 @@ ja:
     label_link_show: '詳細'
     label_link_edit: '編集'
     label_link_destroy: '削除'
+    label_link_sort_created_at: '作成時刻でソート'            
     label_link_back: '戻る'    
     label_submit_new: '登録する'
     msg_confirm_destroy: '削除してよろしいですか？'

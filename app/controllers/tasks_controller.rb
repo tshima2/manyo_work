@@ -1,10 +1,13 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
   def index
-#    @tasks=Task.all.order(updated_at: 'DESC')
-    @tasks=Task.all.order(created_at: 'DESC')    
+    if params[:sort] && params[:sort]=="1"
+      @tasks=Task.all.order(created_at: 'DESC')
+    else
+      @tasks=Task.all.order(id: 'ASC')
+    end
   end
-  
+
   def new
     @task=Task.new
   end
