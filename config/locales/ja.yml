@@ -1,9 +1,18 @@
 ja:
   application:
     msg_err_exists: '件のエラーがあります。'
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: 'タスク名称は必須です'
+              taken: 'その名称は既に登録済みです'	      
   tasks:
     label_index: 'タスク一覧'
-    label_new: '新規作成'    
+    label_new: '新規作成'
+    label_show: 'タスク詳細'        
     label_name: 'タスク名称'
     label_description: 'タスク説明'
     label_link_index: '一覧'        
@@ -11,6 +20,7 @@ ja:
     label_link_show: '詳細'
     label_link_edit: '編集'
     label_link_destroy: '削除'
+    label_link_sort_created_at: '作成時刻でソート'            
     label_link_back: '戻る'    
     label_submit_new: '登録する'
     msg_confirm_destroy: '削除してよろしいですか？'

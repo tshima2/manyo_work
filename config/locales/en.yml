@@ -1,9 +1,18 @@
 en:
   application:
     msg_err_exists: ' errors exists.'
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: 'attribute name is needed.'
+              taken: 'specified name is already registered.'
   tasks:
     label_index: 'Task List'
-    label_new: 'New Task'        
+    label_new: 'New Task'
+    label_show: 'Show Task'    
     label_name: 'Name'
     label_description: 'Description'
     label_link_index: 'Task List'    
@@ -11,7 +20,8 @@ en:
     label_link_show: 'Show'
     label_link_edit: 'Edit'
     label_link_destroy: 'Destroy'
-    label_link_back: 'Back'    
+    label_link_back: 'Back'
+    label_link_sort_created_at: 'Sort by created time'        
     label_submit_new: 'Create Task'
     msg_confirm_destroy: 'Are you sure?'
     msg_create_success: 'your task successfly created.'

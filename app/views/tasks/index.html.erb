@@ -9,8 +9,8 @@
   </tr>
   <% @tasks.each do |task| %>
   <tr>
-    <td><%= task.name %></td>
-    <td><%= task.description %></td>
+    <td class="task_row_name"><%= task.name %></td>
+    <td class="task_row_description"><%= task.description %></td>
     <td><%= link_to t('tasks.label_link_show'), task_path(task.id) %></td>
     <td><%= link_to t('tasks.label_link_edit'), edit_task_path(task.id) %></td>
     <td><%= link_to t('tasks.label_link_destroy'), task_path(task.id), method: :delete, data: {confirm: t('tasks.msg_confirm_destroy')} %></td>
@@ -18,3 +18,4 @@
   <% end %>
 </table>
 <%= link_to t('tasks.label_link_new'), new_task_path %>
+<%= link_to t('tasks.label_link_sort_created_at'), tasks_path(sort: 1) %>

@@ -26,6 +26,7 @@ RSpec.configure do |config|
   end
 =end
 
+
   # ブラウザを表示させながらテスト
   config.before(:each, type: :system) do  
     driven_by(:selenium_chrome)
