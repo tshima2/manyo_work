@@ -1,16 +1,41 @@
 <h1><%= t('tasks.label_index') %></h1>
 
 <p><%= notice %></p>
+
+<%= form_with(scope: :filter, local: true, url: tasks_path, method: :get) do |form| %>
+    <div class="filter_condition">
+    <div class="fileter_condition">  
+      ステータスを選択:
+      <select name="filter[status]" readonly>
+	<option value=0 <%= 'selected' if @filter_status.present? && @filter_status=="0" %>></option>
+	<option value=1 <%= 'selected' if @filter_status.present? && @filter_status=="1" %>>未着手</option>	
+	<option value=2 <%= 'selected' if @filter_status.present? && @filter_status=="2" %>>着手中</option>
+	<option value=3 <%= 'selected' if @filter_status.present? && @filter_status=="3" %>>完了</option>    
+      </select>
+    </div>
+    <div class="filter_condition">タスク名称の一部を入力:
+      <%= content_tag(:input, '', type:'text', name:'filter[name]', value: (@filter_name if @filter_name.present?) ) %>
+    </div>
+  </div>
+  <input type="submit" value="絞り込み" />    
+<% end %>
+
 <table border=1>
   <tr>
     <th><%= t('tasks.label_name') %></th>
     <th><%= t('tasks.label_description') %></th>
+    <th><%= t('tasks.label_deadline') %></th>
+    <th><%= t('tasks.label_priority') %></th>
+    <th><%= t('tasks.label_status') %></th>    
     <th></th><th></th><th></th>    
   </tr>
   <% @tasks.each do |task| %>
   <tr>
     <td class="task_row_name"><%= task.name %></td>
     <td class="task_row_description"><%= task.description %></td>
+    <td class="task_row_deadline"><%= task.deadline %></td>
+    <td class="task_row_priority"><%= task.priority %></td>
+    <td class="task_row_status"><%= case task.status when 0 then '' when 1 then '未着手' when 2 then '着手中' when 3 then '完了' else '' end %></td>    
     <td><%= link_to t('tasks.label_link_show'), task_path(task.id) %></td>
     <td><%= link_to t('tasks.label_link_edit'), edit_task_path(task.id) %></td>
     <td><%= link_to t('tasks.label_link_destroy'), task_path(task.id), method: :delete, data: {confirm: t('tasks.msg_confirm_destroy')} %></td>
@@ -18,4 +43,5 @@
   <% end %>
 </table>
 <%= link_to t('tasks.label_link_new'), new_task_path %>
-<%= link_to t('tasks.label_link_sort_created_at'), tasks_path(sort: 1) %>
+<%= link_to t('tasks.label_link_sort_created'), tasks_path(sort_created: "true") %>
+<%= link_to t('tasks.label_link_sort_expired'), tasks_path(sort_expired: "true") %>

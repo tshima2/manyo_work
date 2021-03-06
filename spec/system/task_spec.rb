@@ -4,12 +4,13 @@ require 'helpers/basic_auth_helper.rb'
 RSpec.describe 'タスク管理機能', type: :system do
 
   before do
-      @label_index=I18n.t('tasks.label_index')
-      @label_show=I18n.t('tasks.label_show')
-      @label_name=I18n.t('tasks.label_name')
-      @label_description=I18n.t('tasks.label_description')
-      @label_submit_new=I18n.t('tasks.label_submit_new')
-      @label_link_sort=I18n.t('tasks.label_link_sort_created_at')
+    @label_index=I18n.t('tasks.label_index')
+    @label_show=I18n.t('tasks.label_show')
+    @label_name=I18n.t('tasks.label_name')
+    @label_description=I18n.t('tasks.label_description')
+    @label_submit_new=I18n.t('tasks.label_submit_new')
+    @label_link_sort_created=I18n.t('tasks.label_link_sort_created')
+    @label_link_sort_expired=I18n.t('tasks.label_link_sort_expired')    
 
       #BASIC認証を通過
       visit_with_http_auth tasks_path
@@ -29,7 +30,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 3. 「Create Task」というvalue（表記文字）のあるボタンをクリックする
         click_on "new_task_submit"
 
-        # 4. clickで登録された情報が、タスク確認ページに表示されているかを確認する
+        # 4. clickで登録された情報が、確認ページに表示されているかを確認する
         expect(page).to have_content "task-1"
         expect(page).to have_content "コンテント１"
 
@@ -50,19 +51,42 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:task, name: 'task-2', description: 'description-2')
         FactoryBot.create(:task, name: 'task-3', description: 'description-3')
 
-        #遷移した一覧画面の表示項目を取得        
+        #遷移した一覧画面の表示項目を取得
         visit tasks_path
-        click_link @label_link_sort
-        task_list_name = all('.task_row_name')
-        task_list_description = all('.task_row_description')
+
+        click_link @label_link_sort_created
+        sleep(3)
+        
+        #task_list_name = all('.task_row_name')
+        task_list_name = all('.task_row_name', wait: 50)
+        
+        # trying to avoid Capybara::ElementNotFound Error..
+        # sleep(5) by ruby
 
         #一番上の表示項目が作成日時のあたらしい'task-3'/'description-3'であるかをチェック
         expect(task_list_name[0].text).to eq 'task-3'
         expect(task_list_name[1].text).to eq 'task-2'
         expect(task_list_name[2].text).to eq 'task-1'
-        expect(task_list_description[0].text).to eq 'description-3'
-        expect(task_list_description[1].text).to eq 'description-2'
-        expect(task_list_description[2].text).to eq 'description-1'                
+      end
+    end
+    context '（終了期限でソート）リンクをクリックされた場合' do
+      it '終了期限の近いタスクを先頭に、昇順に表示される' do
+        FactoryBot.create(:task, name: 'task-1', deadline: '2021-9-31')
+        FactoryBot.create(:task, name: 'task-2', deadline: '2021-3-30')
+        FactoryBot.create(:task, name: 'task-3', deadline: '2021-6-30')
+
+        #遷移した一覧画面の表示項目を取得
+        visit tasks_path
+        click_link @label_link_sort_expired
+        sleep(3)
+        
+        #task_list_name = all('.task_row_name')
+        task_list_name = all('.task_row_name', wait: 50)
+
+        #終了期限の近いタスクを先頭に、昇順に表示される
+        expect(task_list_name[0].text).to eq 'task-2'
+        expect(task_list_name[1].text).to eq 'task-3'
+        expect(task_list_name[2].text).to eq 'task-1'
 
       end
     end

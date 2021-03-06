@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require "date"
+s1=Date.parse("2021-4-1")
+s2=Date.parse("2021-12-31")
+
+kind=["memo", "todo", "note"]
+
+(1..30).each do |i|
+  Task.create(name: "#{kind[rand(2)]}-#{i.to_s}",
+              #description: Faker::JapaneseMedia::DragonBall.character,
+              description: Gimei.city.kanji,
+              deadline: Random.rand(s1..s2).to_s,
+              priority: rand(1..10),
+              status: rand(1..3))
+end
+

@@ -14,7 +14,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'mini_magick', '~> 4.8'
 gem 'carrierwave'
-gem 'faker'
 
 # ViewFront
 gem 'sass-rails', '~> 5.0'
@@ -36,6 +35,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
   gem 'faker'
+  gem 'gimei'  
   gem 'launchy'  
 end
 
