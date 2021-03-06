@@ -12,7 +12,9 @@ en:
   tasks:
     label_index: 'Task List'
     label_new: 'New Task'
-    label_show: 'Show Task'    
+    label_show: 'Show Task'
+    label_edit: 'Editing Task'
+    label_confirm: 'Confirm Task'            
     label_name: 'Name'
     label_description: 'Description'
     label_deadline: 'Deadline'

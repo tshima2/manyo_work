@@ -4,7 +4,9 @@ FactoryBot.define do
   factory :task do
     name { 'タイトル１' }
     description { 'コンテント１' }
-
+    deadline { '9999-12-31' }
+    priority { 10 }
+    status { 1 }
   end
 
 end

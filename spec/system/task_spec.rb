@@ -18,7 +18,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
-      it '作成したタスクが表示される' do
+      it '作成したタスクが表示され、ステータスも登録ができる' do
 
         # 1. new_task_pathに遷移する（新規作成ページに遷移する）
         visit new_task_path
@@ -26,6 +26,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 2. 新規登録内容を入力する
         fill_in "new_task_name", with: "task-1"
         fill_in "new_task_description", with: "コンテント１"
+        fill_in "new_task_deadline", with: "9999-12-31"
+        fill_in "new_task_priority", with: "10"
+        within '#new_task_status' do
+          select '着手中'
+        end
 
         # 3. 「Create Task」というvalue（表記文字）のあるボタンをクリックする
         click_on "new_task_submit"
@@ -33,6 +38,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 4. clickで登録された情報が、確認ページに表示されているかを確認する
         expect(page).to have_content "task-1"
         expect(page).to have_content "コンテント１"
+        expect(page).to have_content "9999-12-31"
+        expect(page).to have_content "10"
+        expect(page).to have_content "着手中"
 
         # 5. 「登録する」というvalue（表記文字）のあるボタンをクリックする
         click_on "confirm_task_submit"
@@ -40,6 +48,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 6. clickで登録された情報が、タスク詳細ページに表示されているかを確認する
         expect(page).to have_content "task-1"
         expect(page).to have_content "コンテント１"
+        expect(page).to have_content "9999-12-31"
+        expect(page).to have_content "10"
+        expect(page).to have_content "着手中"
+
       end
     end
   end
@@ -56,10 +68,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         click_link @label_link_sort_created
         sleep(3)
-        
+
         #task_list_name = all('.task_row_name')
         task_list_name = all('.task_row_name', wait: 50)
-        
+
         # trying to avoid Capybara::ElementNotFound Error..
         # sleep(5) by ruby
 
@@ -79,7 +91,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
         click_link @label_link_sort_expired
         sleep(3)
-        
+
         #task_list_name = all('.task_row_name')
         task_list_name = all('.task_row_name', wait: 50)
 
@@ -90,6 +102,71 @@ RSpec.describe 'タスク管理機能', type: :system do
 
       end
     end
+
+    context '検索をした場合' do
+      it 'タイトルで検索できる' do
+
+        FactoryBot.create(:task, name: 'TODO-1', status: 1)
+        FactoryBot.create(:task, name: 'TODO-2', status: 2)
+        FactoryBot.create(:task, name: 'MEMO-3', status: 3)
+        FactoryBot.create(:task, name: 'MEMO-4', status: 1)
+
+        visit tasks_path
+        fill_in "index_task_name", with: 'TODO'
+        click_on 'index_filter_submit'
+        sleep(3)
+
+        task_list_name = all('.task_row_name')
+        expect(task_list_name.count).to eq 2
+        expect(task_list_name[0].text).to eq 'TODO-1'
+        expect(task_list_name[1].text).to eq 'TODO-2'
+
+      end
+
+      it 'ステータスで検索できる' do
+
+        FactoryBot.create(:task, name: 'TODO-1', status: 1)
+        FactoryBot.create(:task, name: 'TODO-2', status: 2)
+        FactoryBot.create(:task, name: 'MEMO-3', status: 3)
+        FactoryBot.create(:task, name: 'MEMO-4', status: 1)
+
+        visit tasks_path
+        within '#index_task_status' do
+          select '未着手'
+        end
+        click_on 'index_filter_submit'
+        sleep(3)
+
+        task_list_name = all('.task_row_name', wait: 50)
+        expect(task_list_name.count).to eq 2
+        expect(task_list_name[0].text).to eq 'TODO-1'
+        expect(task_list_name[1].text).to eq 'MEMO-4'
+
+      end
+
+      it 'タイトルとステータスの両方で検索できる' do
+
+        FactoryBot.create(:task, name: 'TODO-1', status: 1)
+        FactoryBot.create(:task, name: 'TODO-2', status: 2)
+        FactoryBot.create(:task, name: 'MEMO-3', status: 3)
+        FactoryBot.create(:task, name: 'MEMO-4', status: 1)
+
+        visit tasks_path
+        fill_in 'index_task_name', with: 'TODO'
+        within '#index_task_status' do
+          select '未着手'
+        end
+        click_on 'index_filter_submit'
+        sleep(3)
+
+        task_list_name = all('.task_row_name', wait: 50)
+        expect(task_list_name.count).to eq 1
+        expect(task_list_name[0].text).to eq 'TODO-1'
+
+      end
+
+    end
+
   end
 
   describe '詳細表示機能' do

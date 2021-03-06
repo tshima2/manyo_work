@@ -2,5 +2,8 @@
 <h2><%= t('tasks.label_show') %></h2>
 <p><%= t('tasks.label_name') %>：<%= @task.name %></p>
 <p><%= t('tasks.label_description') %>: <%= @task.description %></p>
+<p><%= t('tasks.label_deadline') %>: <%= @task.deadline %></p>
+<p><%= t('tasks.label_priority') %>: <%= @task.priority %></p>
+<p><%= t('tasks.label_status') %>: <%= case @task.status when nil then '' when 1 then '未着手' when 2 then '着手中' when 3 then '完了' else '' end %></p>
 <%= link_to t('tasks.label_link_edit'), edit_task_path(@task) %>
 <%= link_to t('tasks.label_link_index'), tasks_path %>

@@ -12,8 +12,10 @@ ja:
   tasks:
     label_index: 'タスク一覧'
     label_new: '新規作成'
-    label_show: 'タスク詳細' 
+    label_show: 'タスク詳細'
+    label_edit: 'タスク編集'     
     label_name: 'タスク名称'
+    label_confirm: '確認'    
     label_description: 'タスク説明'
     label_deadline: '終了期限'
     label_priority: '優先順位'

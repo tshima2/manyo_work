@@ -28,7 +28,12 @@
 </div>
 <div class="task_status">
   <%= form.label :status, value: t('tasks.label_status') %>
-  <%= form.select(:status, raw('<option value=0 selected></option><option value=1>未着手</option><option value=2>着手中</option><option value=3>完了</option>'), id:'new_task_status') %>
+  <select name="task[status]" id="new_task_status">
+    <option value="" <%= 'selected' if @task.status.present? && @task.status=="" %>></option>
+    <option value="1" <%= 'selected' if @task.status.present? && @task.status==1 %>>未着手</option>	
+    <option value="2" <%= 'selected' if @task.status.present? && @task.status==2 %>>着手中</option>
+    <option value="3" <%= 'selected' if @task.status.present? && @task.status==3 %>>完了</option>    
+  </select>
 </div>
 <%= form.submit t('tasks.label_submit_new'), id:'new_task_submit' %>
 <% end %>

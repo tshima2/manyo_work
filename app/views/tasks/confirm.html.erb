@@ -1,9 +1,17 @@
-<h3>確認</h3>
+<p id="notice"><%= notice %></p>
+<h2><%= t('tasks.label_confirm')%></h2>
 <%= form_with(model: @task, url: tasks_path, local: true) do |form| %>
   <%= form.hidden_field :name %>
   <%= form.hidden_field :description %>
-  <p>名称:<%= @task.name %></p>
-  <p>内容:<%= @task.description %></p>
+  <%= form.hidden_field :deadline %>
+  <%= form.hidden_field :priority %>
+  <%= form.hidden_field :status %>
+<p><%= t('tasks.label_name') %>：<%= @task.name %></p>
+<p><%= t('tasks.label_description') %>: <%= @task.description %></p>
+<p><%= t('tasks.label_deadline') %>: <%= @task.deadline %></p>
+<p><%= t('tasks.label_priority') %>: <%= @task.priority %></p>
+<p><%= t('tasks.label_status') %>: <%= case @task.status when nil then '' when 1 then '未着手' when 2 then '着手中' when 3 then '完了' else '' end %>
+</p>
   <%= form.submit "登録する", id:"confirm_task_submit" %>
   <%= form.submit "戻る", name: "back", id: "confirm_back_task_submit" %>
 <% end %>
