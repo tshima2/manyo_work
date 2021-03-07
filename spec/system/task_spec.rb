@@ -10,7 +10,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     @label_description=I18n.t('tasks.label_description')
     @label_submit_new=I18n.t('tasks.label_submit_new')
     @label_link_sort_created=I18n.t('tasks.label_link_sort_created')
-    @label_link_sort_expired=I18n.t('tasks.label_link_sort_expired')    
+    @label_link_sort_expired=I18n.t('tasks.label_link_sort_expired')
+    @label_link_sort_priority=I18n.t('tasks.label_link_sort_priority')
 
       #BASIC認証を通過
       visit_with_http_auth tasks_path
@@ -27,29 +28,33 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in "new_task_name", with: "task-1"
         fill_in "new_task_description", with: "コンテント１"
         fill_in "new_task_deadline", with: "9999-12-31"
-        fill_in "new_task_priority", with: "10"
+        within '#new_task_priority' do
+          select '中'
+        end
         within '#new_task_status' do
           select '着手中'
         end
 
         # 3. 「Create Task」というvalue（表記文字）のあるボタンをクリックする
         click_on "new_task_submit"
+        sleep(3)        
 
         # 4. clickで登録された情報が、確認ページに表示されているかを確認する
         expect(page).to have_content "task-1"
         expect(page).to have_content "コンテント１"
         expect(page).to have_content "9999-12-31"
-        expect(page).to have_content "10"
+        expect(page).to have_content "中"
         expect(page).to have_content "着手中"
 
         # 5. 「登録する」というvalue（表記文字）のあるボタンをクリックする
         click_on "confirm_task_submit"
+        sleep(3)        
 
         # 6. clickで登録された情報が、タスク詳細ページに表示されているかを確認する
         expect(page).to have_content "task-1"
         expect(page).to have_content "コンテント１"
         expect(page).to have_content "9999-12-31"
-        expect(page).to have_content "10"
+        expect(page).to have_content "中"
         expect(page).to have_content "着手中"
 
       end
@@ -81,6 +86,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list_name[2].text).to eq 'task-1'
       end
     end
+
     context '（終了期限でソート）リンクをクリックされた場合' do
       it '終了期限の近いタスクを先頭に、昇順に表示される' do
         FactoryBot.create(:task, name: 'task-1', deadline: '2021-9-31')
@@ -98,6 +104,28 @@ RSpec.describe 'タスク管理機能', type: :system do
         #終了期限の近いタスクを先頭に、昇順に表示される
         expect(task_list_name[0].text).to eq 'task-2'
         expect(task_list_name[1].text).to eq 'task-3'
+        expect(task_list_name[2].text).to eq 'task-1'
+
+      end
+    end
+
+    context '（優先順位でソート）リンクをクリックされた場合' do
+      it '優先順位の高いタスクを先頭に、降順に表示される' do
+        FactoryBot.create(:task, name: 'task-1', priority: 0)
+        FactoryBot.create(:task, name: 'task-2', priority: 1)
+        FactoryBot.create(:task, name: 'task-3', priority: 2)
+
+        #遷移した一覧画面の表示項目を取得
+        visit tasks_path
+        click_link @label_link_sort_priority
+        sleep(3)
+
+        #task_list_name = all('.task_row_name')
+        task_list_name = all('.task_row_name', wait: 50)
+
+        #優先順位の高いタスクを先頭に、降順に表示される
+        expect(task_list_name[0].text).to eq 'task-3'
+        expect(task_list_name[1].text).to eq 'task-2'
         expect(task_list_name[2].text).to eq 'task-1'
 
       end
@@ -181,6 +209,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content @label_show
         expect(page).to have_content task.name
         expect(page).to have_content task.description
+        expect(page).to have_content task.deadline
+        expect(page).to have_content task.priority
+        expect(page).to have_content task.status
 
       end
      end

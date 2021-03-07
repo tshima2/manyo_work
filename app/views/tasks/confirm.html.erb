@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h2><%= t('tasks.label_confirm')%></h2>
+<h1><%= t('tasks.label_confirm')%></h1>
 <%= form_with(model: @task, url: tasks_path, local: true) do |form| %>
   <%= form.hidden_field :name %>
   <%= form.hidden_field :description %>

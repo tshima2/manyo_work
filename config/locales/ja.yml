@@ -27,9 +27,18 @@ ja:
     label_link_destroy: '削除'
     label_link_sort_created: '作成時刻でソート'
     label_link_sort_expired: '終了期限でソート'
+    label_link_sort_priority: '優先順位でソート'    
     label_link_back: '戻る'
     label_submit_new: '登録する'
+    enum_priority_low: '低'
+    enum_priority_normal: '中'
+    enum_priority_high: '高'
     msg_confirm_destroy: '削除してよろしいですか？'
     msg_create_success: 'タスクを作成しました'
     msg_update_success: 'タスクを更新しました'
     msg_destroy_success: 'タスクを削除しました'
+  views:
+    pagination:
+      truncate: ' ... '
+      next: 'Next'
+      last: 'Last'      

@@ -25,3 +25,4 @@ cifs*
 
 # server start script
 start_manyo
+start_task_spec

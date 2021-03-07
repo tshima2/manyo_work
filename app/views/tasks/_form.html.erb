@@ -24,7 +24,13 @@
 </div>
 <div class="task_priority">
   <%= form.label :priority, value: t('tasks.label_priority') %>
-  <%= form.number_field :priority, id:'new_task_priority' %>
+  <select name="task[priority]" id="new_task_priority">
+    <option value=""  <%= 'selected' if @task.priority.empty? %>></option>
+    <option value='<%= t('tasks.enum_priority_low') %>' <%= 'selected' if @task.priority==t('tasks.enum_priority_low') %>> <%= t('tasks.enum_priority_low') %></option>	
+    <option value='<%= t('tasks.enum_priority_low') %>' <%= 'selected' if @task.priority==t('tasks.enum_priority_normal') %>> <%= t('tasks.enum_priority_normal') %></option>
+    <option value='<%= t('tasks.enum_priority_low') %>' <%= 'selected' if @task.priority==t('tasks.enum_priority_high') %>> <%= t('tasks.enum_priority_high') %></option>    
+  </select>
+  
 </div>
 <div class="task_status">
   <%= form.label :status, value: t('tasks.label_status') %>

@@ -5,7 +5,7 @@ FactoryBot.define do
     name { 'タイトル１' }
     description { 'コンテント１' }
     deadline { '9999-12-31' }
-    priority { 10 }
+    priority { 0 }
     status { 1 }
   end
 
