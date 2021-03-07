@@ -14,8 +14,8 @@ kind=["memo", "todo", "note"]
 
 (1..150).each do |i|
   Task.create(name: "#{kind[rand(2)]}-#{i.to_s}",
-              #description: Faker::JapaneseMedia::DragonBall.character,
-              description: Gimei.city.kanji,
+              description: Faker::JapaneseMedia::DragonBall.character,
+              #description: Gimei.city.kanji,
               deadline: Random.rand(s1..s2).to_s,
 #              priority: [nil, *(0..2)].sample,
               priority: [*(0..2)].sample,
