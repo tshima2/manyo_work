@@ -23,6 +23,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'kaminari'
+gem 'faker'
+gem 'gimei'  
 
 # Debug, Framework, Test
 group :development, :test do
@@ -35,8 +37,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
-  gem 'faker'
-  gem 'gimei'  
   gem 'launchy'  
 end
 
