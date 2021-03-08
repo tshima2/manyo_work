@@ -1,0 +1,8 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<h1><%= t('users.title_mypage', name: @user.name) %></h1>
+<table>
+  <tr><td><%= t('users.email') %>: <%= @user.email %></td></tr>
+</table>
+
+<%= link_to t('users.label_edit')+' | ', edit_user_path(@user) if (current_user && (@user.id == current_user.id)) %>
+<%= link_to t('users.label_home'), tasks_path %>

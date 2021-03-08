@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
 
   def index
+    authenticate_user
 
     # 絞り込み用ボタンが押された場合
     if params["filter"] && params["filter"]["name"].present?
@@ -10,6 +11,8 @@ class TasksController < ApplicationController
     if params["filter"] && params["filter"]["status"].present?
       @filter_status = params["filter"]["status"]
     end
+
+    # @tasks=Task.filter(params["filter"]).sort(params).page(params[:page]).per(20)
 
     # "speghetti"条件分岐
     if @filter_name
