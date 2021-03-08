@@ -13,33 +13,32 @@ class TasksController < ApplicationController
     end
 
     # @tasks=Task.filter(params["filter"]).sort(params).page(params[:page]).per(20)
-
+    
     # "speghetti"条件分岐
     if @filter_name
       if @filter_status
-        @tasks=Task.name_like(@filter_name).status_search(@filter_status).id_sort.page(params[:page]).per(20)
+        @tasks=@current_user.tasks.name_like(@filter_name).status_search(@filter_status).id_sort.page(params[:page]).per(20)
       else
-        @tasks=Task.name_like(@filter_name).id_sort.page(params[:page]).per(20)
+        @tasks=@current_user.tasks.name_like(@filter_name).id_sort.page(params[:page]).per(20)
       end
 
     else
       if @filter_status
-        @tasks=Task.status_search(@filter_status).id_sort.page(params[:page]).per(20)
+        @tasks=@current_user.tasks.status_search(@filter_status).id_sort.page(params[:page]).per(20)
       else
         # ソート用リンクが踏まれた場合
         if params[:sort_created] && params[:sort_created]=="true"     # 作成日時の降順でソート
-          @tasks=Task.all.created_sort.page(params[:page]).per(20)
+          @tasks=@current_user.tasks.created_sort.page(params[:page]).per(20)
         elsif params[:sort_expired] && params[:sort_expired]=="true"  # 終了期限の昇順でソート
-          @tasks=Task.all.deadline_sort.page(params[:page]).per(20)
+          @tasks=@current_user.tasks.deadline_sort.page(params[:page]).per(20)
         elsif params[:sort_priority] && params[:sort_priority]=="true"  # 優先順位の降順でソート
-          @tasks=Task.all.priority_sort.page(params[:page]).per(20)
+          @tasks=@current_user.tasks.priority_sort.page(params[:page]).per(20)
         else
-          @tasks=Task.all.id_sort.page(params[:page]).per(20)          # ソート順指定なし/idの昇順でソート
+          @tasks=@current_user.tasks.id_sort.page(params[:page]).per(20)          # ソート順指定なし/idの昇順でソート
         end
       end
 
     end
-
   end
 
   def new
