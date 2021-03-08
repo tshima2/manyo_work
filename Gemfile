@@ -14,7 +14,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'mini_magick', '~> 4.8'
 gem 'carrierwave'
-gem 'faker'
 
 # ViewFront
 gem 'sass-rails', '~> 5.0'
@@ -23,6 +22,9 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'kaminari'
+gem 'faker'
+gem 'gimei'  
 
 # Debug, Framework, Test
 group :development, :test do
@@ -35,7 +37,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
-  gem 'faker'
   gem 'launchy'  
 end
 

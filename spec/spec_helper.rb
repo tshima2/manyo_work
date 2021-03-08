@@ -15,7 +15,6 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
-=begin  
   # 「headless_chromeのno-sandboxオプション」を追加する
   config.before(:each) do |example|
     if example.metadata[:type] == :system
@@ -24,14 +23,14 @@ RSpec.configure do |config|
       end
     end
   end
-=end
 
 
+=begin  
   # ブラウザを表示させながらテスト
   config.before(:each, type: :system) do  
     driven_by(:selenium_chrome)
   end
-
+=end
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

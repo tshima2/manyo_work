@@ -18,6 +18,29 @@
   <%= form.label :description, value: t('tasks.label_description') %>
   <%= form.text_field :description, id:'new_task_description' %>
 </div>
+<div class="task_deadline">
+  <%= form.label :deadline, value: t('tasks.label_deadline') %>
+  <%= form.text_field :deadline, id:'new_task_deadline' %>
+</div>
+<div class="task_priority">
+  <%= form.label :priority, value: t('tasks.label_priority') %>
+  <select name="task[priority]" id="new_task_priority">
+    <option value=""  <%= 'selected' if @task.priority.empty? %>></option>
+    <option value='<%= t('tasks.enum_priority_low') %>' <%= 'selected' if @task.priority==t('tasks.enum_priority_low') %>> <%= t('tasks.enum_priority_low') %></option>	
+    <option value='<%= t('tasks.enum_priority_low') %>' <%= 'selected' if @task.priority==t('tasks.enum_priority_normal') %>> <%= t('tasks.enum_priority_normal') %></option>
+    <option value='<%= t('tasks.enum_priority_low') %>' <%= 'selected' if @task.priority==t('tasks.enum_priority_high') %>> <%= t('tasks.enum_priority_high') %></option>    
+  </select>
+  
+</div>
+<div class="task_status">
+  <%= form.label :status, value: t('tasks.label_status') %>
+  <select name="task[status]" id="new_task_status">
+    <option value="" <%= 'selected' if @task.status.present? && @task.status=="" %>></option>
+    <option value="1" <%= 'selected' if @task.status.present? && @task.status==1 %>>未着手</option>	
+    <option value="2" <%= 'selected' if @task.status.present? && @task.status==2 %>>着手中</option>
+    <option value="3" <%= 'selected' if @task.status.present? && @task.status==3 %>>完了</option>    
+  </select>
+</div>
 <%= form.submit t('tasks.label_submit_new'), id:'new_task_submit' %>
 <% end %>
 
