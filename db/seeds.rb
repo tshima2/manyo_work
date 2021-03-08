@@ -12,7 +12,7 @@ s2=Date.parse("2021-12-31")
 
 kind=["memo", "todo", "note"]
 
-(1..150).each do |i|
+(1..10000).each do |i|
   Task.create(name: "#{kind[rand(2)]}-#{i.to_s}",
               #description: Faker::JapaneseMedia::DragonBall.character,
               description: Gimei.city.kanji,
