@@ -37,6 +37,24 @@ ja:
     msg_create_success: 'タスクを作成しました'
     msg_update_success: 'タスクを更新しました'
     msg_destroy_success: 'タスクを削除しました'
+  admin:
+    users:
+      title_index: '（管理メニュー）ユーザ一覧'
+      title_mypage: '（管理メニュー）ユーザ詳細'      
+      label_id: 'ID'
+      label_name: '名前'
+      label_email: 'メール'
+      label_edit: 'ユーザ編集'
+      label_password: 'パスワード'
+      label_admin: '管理者権限'
+      label_update: '更新する'
+      label_link_show: '詳細'
+      label_link_edit: '編集'
+      label_link_destroy: '削除'
+      label_link_back: '戻る'
+      label_link_index: '一覧'
+      msg_confirm_destroy: '削除しますか？'
+      msg_destroy_failed: '削除に失敗しました'
   views:
     pagination:
       truncate: ' ... '

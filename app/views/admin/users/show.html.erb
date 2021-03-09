@@ -1,0 +1,10 @@
+<!-- <p id="notice"><%= notice %></p> -->
+<h1><%= t('admin.users.title_mypage', name: @user.name) %></h1>
+<table>
+  <tr><td><%= t('admin.users.label_name') %></td><td><%= @user.name %></td></tr>  
+  <tr><td><%= t('admin.users.label_email') %></td><td><%= @user.email %></td></tr>
+  <tr><td><%= t('admin.users.label_admin') %></td><td><%= @user.admin %></td></tr>  
+</table>
+
+<%= link_to t('admin.users.label_link_edit')+' | ', edit_user_path(@user) if (current_user && (@user.id == current_user.id)) %>
+<%= link_to t('admin.users.label_link_index'), admin_users_path %>

@@ -17,12 +17,16 @@
     <% if logged_in? %>
       <%= link_to "Profile", user_path(current_user.id) %>
       <%= link_to "Logout", sessions_path(current_user.id), method: :delete %>
+      <% if admin? %>
+        <%= link_to "Admin", admin_users_path %>    
+      <% end %>          
     <% else %>
       <%= link_to "Sign up", new_user_path %>
       <%= link_to "Login", new_sessions_path %>
     <% end %>
-    
-    
+
+
+
     <%= yield %>
   </body>
 </html>

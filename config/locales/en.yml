@@ -37,3 +37,26 @@ en:
     msg_create_success: 'your task successfly created.'
     msg_update_success: 'your task successfly updated'
     msg_destroy_success: 'your task successfly destroyed.'
+  admin:
+    users:
+      title_index: '（Admin-Menu）Users#Index'
+      title_mypage: '（Admin-Menu）Users#Show'      
+      label_id: 'ID'
+      label_name: 'name'
+      label_email: 'email'
+      label_edit: 'edit'
+      label_password: 'password'
+      label_admin: '管理者権限'
+      label_update: 'update'
+      label_link_show: 'show'
+      label_link_edit: 'edit'
+      label_link_destroy: 'destroy'
+      label_link_back: 'Back'
+      label_link_index: 'Index'
+      msg_confirm_destroy: 'Are you sure？'
+      msg_destroy_failed: 'destroy failed.'
+  views:
+    pagination:
+      truncate: ' ... '
+      next: 'Next'
+      last: 'Last'          

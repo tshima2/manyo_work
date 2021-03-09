@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       redirect_to edit_user_path, notice: t('users.msg_update_success')
     else
       notice = t('users.msg_update_failed')
-      render :edit;
+      render :edit
     end
   end
 
@@ -44,6 +44,9 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+  def set_user
+    @user=User.find(params[:id])    
   end
 end
 
