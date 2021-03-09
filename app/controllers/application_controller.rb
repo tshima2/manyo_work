@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user
     # 現在ログイン中のユーザが存在しない場合、ログインページにリダイレクトする
     current_user
-    redirect_to new_sessions_path, notice: t('notice.login_needed') unless @current_user
+    redirect_to new_sessions_path, notice: t('notice.login_needed') unless @current_user    
   end
 
   def basic_auth

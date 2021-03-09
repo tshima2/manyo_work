@@ -4,12 +4,21 @@ class Task < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   belongs_to :user
 
-  scope :status_search, ->(_status) { where(status: _status) }
-  scope :name_like, ->(_name){ where('name like ?', "%#{_name}%") }
+  scope :status_search, ->(_status) { where(status: _status) if _status.present? }
+  scope :name_like, ->(_name){ where('name like ?', "%#{_name}%") if _name.present? }
 
-  scope :id_sort, ->{ order(id: :asc) }
-  scope :created_sort, ->{ order(created_at: :desc) }
-  scope :deadline_sort, ->{ order(deadline: :asc) }
-  scope :priority_sort, ->{ order(priority: :desc) }
+=begin  
+  scope :created_sort, ->(_flg){ order(created_at: :desc) if _flg }
+  scope :expired_sort, ->(_flg){ order(deadline: :asc) } if _flg }
+  scope :priority_sort, ->(_flg){ order(priority: :desc) } if _flg }
+=end
+
+  scope :alter_sort_by, ->(_params){
+    if(_params.has_key?(:sort_created)) then order(created_at: :desc)
+    elsif(_params.has_key?(:sort_expired)) then order(deadline: :asc)
+    elsif(_params.has_key?(:sort_priority)) then order(priority: :desc)
+    else order(id: :asc)
+    end
+  }
 
 end
