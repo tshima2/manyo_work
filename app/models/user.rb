@@ -11,7 +11,6 @@ class User < ApplicationRecord
   private
   def ensure_not_last_administrator
     if(self.admin && User.where(admin: true).count == 1)
-      byebug
       throw :abort
     end
   end
