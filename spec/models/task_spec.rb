@@ -4,26 +4,27 @@ RSpec.describe Task, type: :model do
 #  pending "add some examples to (or delete) #{__FILE__}"
 
   before do
-    @fbtask=FactoryBot.create(:task)
-    FactoryBot.create(:task, name: 'TODO-1', status: 1)
-    FactoryBot.create(:task, name: 'TODO-2', status: 2)
-    FactoryBot.create(:task, name: 'MEMO-1', status: 3)
-    FactoryBot.create(:task, name: 'MEMO-2', status: 1)
-    FactoryBot.create(:task, name: 'MEMO-3', status: 2)
+    @user=FactoryBot.create(:user)
+    @task=FactoryBot.create(:task, user_id: @user.id)
+    FactoryBot.create(:task, name: 'TODO-1', status: 1, user_id: @user.id)
+    FactoryBot.create(:task, name: 'TODO-2', status: 2, user_id: @user.id)
+    FactoryBot.create(:task, name: 'MEMO-1', status: 3, user_id: @user.id)
+    FactoryBot.create(:task, name: 'MEMO-2', status: 1, user_id: @user.id)
+    FactoryBot.create(:task, name: 'MEMO-3', status: 2, user_id: @user.id)
   end
 
   describe 'タスクモデル機能', type: :model do
     describe 'バリデーションのテスト' do
       context 'タスクの名前が空の場合' do
         it 'バリデーションにひっかかる' do
-          task= Task.new(name: '', description: '説明')
+          task= Task.new(name: '', description: '説明', user_id: @user.id)
           expect(task).not_to be_valid
         end
       end
 
       context 'タスクの名前が空でない場合' do
         it 'バリデーションに通る' do
-          task= Task.new(name: '名前', description: '')
+          task= Task.new(name: '名前', description: '', user_id: @user.id)
           expect(task).to be_valid
         end
       end
@@ -31,7 +32,7 @@ RSpec.describe Task, type: :model do
       context 'タスクの名前が一意でない場合' do
         it 'バリデーションにひっかかる' do
           expect{
-            Task.create!(name: @fbtask.name)
+            Task.create!(name: @task.name)
           }.to raise_error(ActiveRecord::RecordInvalid)
 
         end
@@ -76,4 +77,4 @@ RSpec.describe Task, type: :model do
     end
   end
 end
-    
+

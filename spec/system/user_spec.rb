@@ -2,6 +2,7 @@ require 'rails_helper'
 # require 'helpers/basic_auth_helper.rb'
 
 RSpec.describe 'ユーザ登録のテスト', type: :system do
+
   before do
     #それぞれの権限をもつユーザを作成する
     @user=FactoryBot.create(:user)
