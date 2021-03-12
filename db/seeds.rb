@@ -16,6 +16,10 @@ prefix=""
   User.create(name: name, email: email, password: password)
 end
 
+  name="admin"
+  email=name+'@example.com'
+  password=name
+  User.create(name: name, email: email, password: password)
 
 # insert 1000 Task
 require "date"
