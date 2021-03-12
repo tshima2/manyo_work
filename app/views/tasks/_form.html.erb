@@ -42,6 +42,7 @@
   </select>
 </div>
 <%= form.submit t('tasks.label_submit_new'), id:'new_task_submit' %>
+<%= form.hidden_field :user_id, value: @current_user.id %>
 <% end %>
 
 <%= link_to t('tasks.label_link_back'), tasks_path %>

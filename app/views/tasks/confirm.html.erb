@@ -14,4 +14,5 @@
 </p>
   <%= form.submit "登録する", id:"confirm_task_submit" %>
   <%= form.submit "戻る", name: "back", id: "confirm_back_task_submit" %>
+<%= form.hidden_field :user_id, value: @current_user.id %>  
 <% end %>

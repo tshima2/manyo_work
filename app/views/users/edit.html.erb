@@ -1,4 +1,4 @@
-<h1><%= t('users.label_signup') %></h1>
+<h1><%= t('users.label_title_signup') %></h1>
 
 <% if @user.errors.any? %>
 <div id="error_explanation">
@@ -24,6 +24,6 @@
 </div>
 
 <div class="actions">
-  <%= form.submit t('users.label_update') %>
+  <%= form.submit t('users.label_submit_signup') %>
 </div>
 <% end %>

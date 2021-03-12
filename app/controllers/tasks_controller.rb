@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
 # include SearchService
 
-  before_action :do_auth, only:[:index]
+  before_action :do_auth, only:[:index, :new, :show, :edit, :destroy, :confirm]
   before_action :set_task, only:[:show, :edit, :update, :destroy]
   def index
-    redirect_to new_sessions_path, notice: t('notice.login_needed') unless @current_user
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    end
 
     # 絞り込み用ボタンが押された場合
     if params["filter"] && params["filter"]["name"].present?
@@ -28,12 +30,20 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task=Task.new
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    else
+      @task=Task.new
+    end
   end
 
   def confirm
-    @task = Task.new(task_params)
-    render :new if @task.invalid?
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    else
+      @task = Task.new(task_params)
+      render :new if @task.invalid?
+    end
   end
 
   def create
@@ -56,8 +66,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to tasks_path, notice: t('tasks.msg_destroy_success')
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    else
+      @task.destroy
+      redirect_to tasks_path, notice: t('tasks.msg_destroy_success')
+    end
   end
 
   private
@@ -66,7 +80,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority, :status)
+    params.require(:task).permit(:name, :description, :deadline, :priority, :status, :user_id)
   end
 
   def do_auth
