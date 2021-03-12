@@ -19,7 +19,7 @@ end
   name="admin"
   email=name+'@example.com'
   password=name
-  User.create(name: name, email: email, password: password)
+  User.create(name: name, email: email, password: password, admin: true)
 
 # insert 1000 Task
 require "date"
