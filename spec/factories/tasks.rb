@@ -7,6 +7,7 @@ FactoryBot.define do
     deadline { '9999-12-31' }
     priority { 0 }
     status { 1 }
+    association :user_id, factory: :user
   end
 
 end

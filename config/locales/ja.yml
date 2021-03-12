@@ -1,6 +1,10 @@
 ja:
   application:
     msg_err_exists: '件のエラーがあります。'
+    msg_login_success: 'ログインしました'
+    msg_login_failed: 'ログインに失敗しました'
+    msg_logout_success: 'ログアウトしました'
+    msg_admin_priv_denied_to_access: '管理者以外はアクセスできません'
   activerecord:
     errors:
       models:
@@ -37,8 +41,50 @@ ja:
     msg_create_success: 'タスクを作成しました'
     msg_update_success: 'タスクを更新しました'
     msg_destroy_success: 'タスクを削除しました'
+  sessions:
+    label_title_new: 'ログイン'
+    label_email: 'メール'
+    label_password: 'パスワード'
+    label_password_confirmation: '確認用パスワード'
+    label_submit_login: 'ログイン'
+  admin:
+    users:
+      label_title_index: '（管理メニュー）ユーザ一覧'
+      label_title_new: '（管理メニュー）ユーザ新規作成'      
+      label_title_mypage: "(管理メニュー）%{name}ユーザ詳細"
+      label_title_edit: "(管理メニュー）%{name}ユーザ編集"      
+      label_id: 'ID'
+      label_name: '名前'
+      label_email: 'メール'
+      label_edit: 'ユーザ編集'
+      label_password: 'パスワード'
+      label_admin: '管理者権限'
+      label_update: '更新する'
+      label_index: 'タスク一覧'
+      label_link_new: '新規作成'
+      label_link_show: '詳細'
+      label_link_edit: '編集'
+      label_link_destroy: '削除'
+      label_link_back: '戻る'
+      label_link_index: '一覧'
+      label_submit_new: '登録する'
+      msg_confirm_destroy: '削除しますか？'
+      msg_destroy_failed: '削除に失敗しました'
+  users:
+    label_title_signup: 'サインアップ'
+    label_name: '名前'
+    label_email: 'メール'
+    label_edit: 'ユーザ編集'
+    label_task_index: 'タスク一覧'    
+    label_password: 'パスワード'
+    label_password_confirmation: '確認用パスワード'
+    label_submit_signup: '登録する'
+    label_title_mypage: 'プロフィール'
   views:
     pagination:
       truncate: ' ... '
       next: 'Next'
-      last: 'Last'      
+      last: 'Last'
+  notice:
+    login_needed: 'ログインが必要です'
+    other_users_mypage: '他ユーザのマイページは参照できません'

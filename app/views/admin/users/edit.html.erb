@@ -1,0 +1,35 @@
+<h1><%= t('admin.users.label_title_edit', name: @user.name) %></h1>
+
+<% if @user.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<%= form_with(model: @user, local: true, url: admin_user_path) do |form| %>
+<div class="field">
+  <%= form.label :name, value: t('admin.users.label_name') %>
+  <%= form.text_field :name %>
+
+  <%= form.label :email, value: t('admin.users.label_email') %>
+  <%= form.email_field :email %>
+
+  <%= form.label :password, value: t('admin.users.label_password') %>
+  <%= form.password_field :password %>
+
+  <%= form.label :admin, value: t('admin.users.label_admin') %>
+  <%= hidden_field_tag 'user[admin]', false %>
+  <%= form.check_box :admin %>
+  
+</div>
+
+<div class="actions">
+  <%= form.submit t('admin.users.label_update'), id:'admin_new_user_submit' %>
+  <%= link_to t('admin.users.label_link_back'), admin_users_path %>  
+</div>
+<% end %>

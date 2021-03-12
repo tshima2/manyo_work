@@ -1,6 +1,10 @@
 en:
   application:
     msg_err_exists: ' errors exists.'
+    msg_login_success: 'successfly logged in.'
+    msg_login_failed: 'failed to login.'
+    msg_logout_success: 'successfly logged out.'
+    msg_admin_priv_denied_to_access: 'only administrator can access.'    
   activerecord:
     errors:
       models:
@@ -25,10 +29,10 @@ en:
     label_link_show: 'Show'
     label_link_edit: 'Edit'
     label_link_destroy: 'Destroy'
-    label_link_back: 'Back'
     label_link_sort_created: 'Sort by created time'        
     label_link_sort_expired: 'Sort by expired time'
-    label_link_sort_priority: 'Sort by priority'    
+    label_link_sort_priority: 'Sort by priority'
+    label_link_back: 'Back'
     label_submit_new: 'Create Task'
     enum_priority_low: 'Low'
     enum_priority_normal: 'Normal'
@@ -37,3 +41,50 @@ en:
     msg_create_success: 'your task successfly created.'
     msg_update_success: 'your task successfly updated'
     msg_destroy_success: 'your task successfly destroyed.'
+  sessions:
+    label_title_new: 'Log in'
+    label_email: 'Email'
+    label_password: 'Password'
+    label_password_confirmation: 'Password(Confirm)'    
+    label_submit_login: 'Log in'
+  admin:
+    users:
+      label_title_index: '（Admin-Menu）Users#Index'
+      label_title_new: '（Admin-Menu）Users#New'
+      label_title_mypage: '（Admin-Menu）%{name}Users#Show'
+      label_title_edit: "(Admin-Menu）%{name}Users#Edit"
+      label_id: 'ID'
+      label_name: 'Name'
+      label_email: 'Email'
+      label_edit: 'Edit'
+      label_password: 'Password'
+      label_admin: 'Authority'
+      label_update: 'Update'
+      label_index: 'Task Index'
+      label_link_new: 'New'
+      label_link_show: 'Show'
+      label_link_edit: 'Edit'
+      label_link_destroy: 'Destroy'
+      label_link_back: 'Back'
+      label_link_index: 'Index'
+      label_submit_new: 'Create my account'      
+      msg_confirm_destroy: 'Are you sure？'
+      msg_destroy_failed: 'Destroy failed.'
+  users:
+    label_title_signup: 'Sign up'
+    label_name: 'Name'
+    label_email: 'Email'
+    label_edit: 'Edit'
+    label_task_index: 'Task Index'
+    label_password: 'Password'
+    label_password_confirmation: 'Password(Confirm)'
+    label_submit_signup: 'Create my account'
+    label_title_mypage: 'Profile'    
+  views:
+    pagination:
+      truncate: ' ... '
+      next: 'Next'
+      last: 'Last'
+  notice:
+    login_needed: 'login is needed.'
+    other_user_mypage: 'other users mypage cannnot be referenced.'

@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
-  before_action :set_task, only:[:show, :edit, :update, :destroy]
+# include SearchService
 
+  before_action :do_auth, only:[:index, :new, :show, :edit, :destroy, :confirm]
+  before_action :set_task, only:[:show, :edit, :update, :destroy]
   def index
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    end
 
     # 絞り込み用ボタンが押された場合
     if params["filter"] && params["filter"]["name"].present?
@@ -11,41 +16,34 @@ class TasksController < ApplicationController
       @filter_status = params["filter"]["status"]
     end
 
-    # "speghetti"条件分岐
-    if @filter_name
-      if @filter_status
-        @tasks=Task.name_like(@filter_name).status_search(@filter_status).id_sort.page(params[:page]).per(20)
-      else
-        @tasks=Task.name_like(@filter_name).id_sort.page(params[:page]).per(20)
-      end
+    tasks=@current_user.tasks
 
-    else
-      if @filter_status
-        @tasks=Task.status_search(@filter_status).id_sort.page(params[:page]).per(20)
-      else
-        # ソート用リンクが踏まれた場合
-        if params[:sort_created] && params[:sort_created]=="true"     # 作成日時の降順でソート
-          @tasks=Task.all.created_sort.page(params[:page]).per(20)
-        elsif params[:sort_expired] && params[:sort_expired]=="true"  # 終了期限の昇順でソート
-          @tasks=Task.all.deadline_sort.page(params[:page]).per(20)
-        elsif params[:sort_priority] && params[:sort_priority]=="true"  # 優先順位の降順でソート
-          @tasks=Task.all.priority_sort.page(params[:page]).per(20)
-        else
-          @tasks=Task.all.id_sort.page(params[:page]).per(20)          # ソート順指定なし/idの昇順でソート
-        end
-      end
+    # フィルタリング("speghetti"条件分岐をなくす) + ソート（リンクが踏まれた場合）
+    # tasks=SearchService::do_filter(tasks, name: @filter_name, status: @filter_status)
+    # tasks=SearchService::do_sort(tasks, params)
+    tasks = tasks.name_like(@filter_name).status_search(@filter_status).alter_sort_by(params)
+    # tasks = tasks.name_like(@filter_name).status_search(@filter_status)
+    # tasks = tasks.created_sort(params["sort_created"]).deadline_sort(params["sort_deadline"]).priority_sort(params["sort_priority"])
 
-    end
-
+    # ページネーション
+    @tasks=tasks.page(params[:page]).per(20)
   end
 
   def new
-    @task=Task.new
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    else
+      @task=Task.new
+    end
   end
 
   def confirm
-    @task = Task.new(task_params)
-    render :new if @task.invalid?
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    else
+      @task = Task.new(task_params)
+      render :new if @task.invalid?
+    end
   end
 
   def create
@@ -68,8 +66,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to tasks_path, notice: t('tasks.msg_destroy_success')
+    unless @current_user
+      redirect_to new_sessions_path, notice: t('notice.login_needed')
+    else
+      @task.destroy
+      redirect_to tasks_path, notice: t('tasks.msg_destroy_success')
+    end
   end
 
   private
@@ -78,6 +80,10 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority, :status)
+    params.require(:task).permit(:name, :description, :deadline, :priority, :status, :user_id)
+  end
+
+  def do_auth
+    authenticate_user
   end
 end
