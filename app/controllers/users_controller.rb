@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+  before_action :do_auth, only:[:show]
   def new
     @user=User.new
   end
@@ -29,6 +31,10 @@ class UsersController < ApplicationController
 
   def show
     @user=User.find(params[:id])
+    if @current_user.id != @user.id
+      flash[:danger] = t('notice.other_users_mypage')
+      redirect_to tasks_path
+    end
   end
 
   def destroy
@@ -48,5 +54,9 @@ class UsersController < ApplicationController
   def set_user
     @user=User.find(params[:id])    
   end
+  def do_auth
+    authenticate_user
+  end
+  
 end
 

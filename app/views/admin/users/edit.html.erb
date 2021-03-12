@@ -1,4 +1,4 @@
-<h1><%= t('admin.users.label_edit') %></h1>
+<h1><%= t('admin.users.label_title_edit', name: @user.name) %></h1>
 
 <% if @user.errors.any? %>
 <div id="error_explanation">

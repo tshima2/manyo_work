@@ -1,6 +1,7 @@
 <!-- <p id="notice"><%= notice %></p> -->
-<h1><%= t('admin.users.title_mypage', name: @user.name) %></h1>
+<h1><%= t('admin.users.label_title_mypage', name: @user.name) %></h1>
 <table>
+  <caption>登録中のタスク件数:<%= @user.tasks.count %>件</caption>  
   <tr><td><%= t('admin.users.label_name') %></td><td><%= @user.name %></td></tr>  
   <tr><td><%= t('admin.users.label_email') %></td><td><%= @user.email %></td></tr>
   <tr><td><%= t('admin.users.label_admin') %></td><td><%= @user.admin %></td></tr>  

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-#  get 'sessions/new'
-  get '/', to: 'tasks#index'      
+  #  get 'sessions/new'
+  root to: 'tasks#index'
+  # get '/', to: 'tasks#index'      
   resources :tasks do
     collection do
       post :confirm

@@ -16,9 +16,9 @@
 
     <% if logged_in? %>
       <%= link_to "Profile", user_path(current_user.id) %>
-      <%= link_to "Logout", sessions_path(current_user.id), method: :delete %>
+      <%= link_to "Logout", sessions_path(current_user.id), method: :delete, id: 'application_logout' %>
       <% if admin? %>
-        <%= link_to "Admin", admin_users_path %>    
+        <%= link_to "Admin", admin_users_path, id: 'application_admin' %>    
       <% end %>          
     <% else %>
       <%= link_to "Sign up", new_user_path %>

@@ -1,4 +1,4 @@
-<h1><%= t('admin.users.label_create') %></h1>
+<h1><%= t('admin.users.label_title_new') %></h1>
 <% if @user.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
@@ -19,5 +19,5 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
-  <%= f.submit t('admin.users.label_update') %>
+  <%= f.submit t('admin.users.label_submit_new'), id: 'new_user_submit' %>
 <% end %>

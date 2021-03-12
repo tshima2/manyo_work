@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/basic_auth_helper.rb'
+#require 'helpers/basic_auth_helper.rb'
 
 RSpec.describe 'タスク管理機能', type: :system do
 
@@ -14,7 +14,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     @label_link_sort_priority=I18n.t('tasks.label_link_sort_priority')
 
       #BASIC認証を通過
-      visit_with_http_auth tasks_path
+      #visit_with_http_auth tasks_path
   end
 
   describe '新規作成機能' do
@@ -37,7 +37,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         # 3. 「Create Task」というvalue（表記文字）のあるボタンをクリックする
         click_on "new_task_submit"
-        sleep(3)        
+        sleep(1)
 
         # 4. clickで登録された情報が、確認ページに表示されているかを確認する
         expect(page).to have_content "task-1"
@@ -48,7 +48,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
         # 5. 「登録する」というvalue（表記文字）のあるボタンをクリックする
         click_on "confirm_task_submit"
-        sleep(3)        
+        sleep(1)
 
         # 6. clickで登録された情報が、タスク詳細ページに表示されているかを確認する
         expect(page).to have_content "task-1"
@@ -78,7 +78,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_list_name = all('.task_row_name', wait: 50)
 
         # trying to avoid Capybara::ElementNotFound Error..
-        # sleep(5) by ruby
+        # sleep(1) by ruby
 
         #一番上の表示項目が作成日時のあたらしい'task-3'/'description-3'であるかをチェック
         expect(task_list_name[0].text).to eq 'task-3'
@@ -96,7 +96,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         #遷移した一覧画面の表示項目を取得
         visit tasks_path
         click_link @label_link_sort_expired
-        sleep(3)
+        sleep(1)
 
         #task_list_name = all('.task_row_name')
         task_list_name = all('.task_row_name', wait: 50)
@@ -118,7 +118,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         #遷移した一覧画面の表示項目を取得
         visit tasks_path
         click_link @label_link_sort_priority
-        sleep(3)
+        sleep(1)
 
         #task_list_name = all('.task_row_name')
         task_list_name = all('.task_row_name', wait: 50)
@@ -142,7 +142,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
         fill_in "index_task_name", with: 'TODO'
         click_on 'index_filter_submit'
-        sleep(3)
+        sleep(1)
 
         task_list_name = all('.task_row_name')
         expect(task_list_name.count).to eq 2
@@ -163,7 +163,7 @@ RSpec.describe 'タスク管理機能', type: :system do
           select '未着手'
         end
         click_on 'index_filter_submit'
-        sleep(3)
+        sleep(1)
 
         task_list_name = all('.task_row_name', wait: 50)
         expect(task_list_name.count).to eq 2
@@ -185,7 +185,7 @@ RSpec.describe 'タスク管理機能', type: :system do
           select '未着手'
         end
         click_on 'index_filter_submit'
-        sleep(3)
+        sleep(1)
 
         task_list_name = all('.task_row_name', wait: 50)
         expect(task_list_name.count).to eq 1
