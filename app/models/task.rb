@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
   enum priority: { 低: 0, 中: 1, 高: 2 }
 #  enum priority: { t('tasks.enum_priority_low'): 0, t('tasks.enum_priority_normal'): 1, t('tasks.enum_priority_high'): 2 }  
   validates :name, presence: true, uniqueness: true

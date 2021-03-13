@@ -18,6 +18,17 @@
   <%= form.label :description, value: t('tasks.label_description') %>
   <%= form.text_field :description, id:'new_task_description' %>
 </div>
+
+<div class="task_label">
+  <%= form.label :label, value: t('tasks.label_label') %>
+
+  <% byebug %>
+  
+  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) do |b| %>
+  <%= b.label { b.check_box + "<span class='label label-info'>".html_safe() + b.text + "</span>".html_safe() } %>
+  <% end %>
+</div>
+
 <div class="task_deadline">
   <%= form.label :deadline, value: t('tasks.label_deadline') %>
   <%= form.text_field :deadline, id:'new_task_deadline' %>

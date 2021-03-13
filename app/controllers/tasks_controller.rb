@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-# include SearchService
 
   before_action :do_auth, only:[:index, :new, :show, :edit, :destroy, :confirm]
   before_action :set_task, only:[:show, :edit, :update, :destroy]
@@ -19,8 +18,6 @@ class TasksController < ApplicationController
     tasks=@current_user.tasks
 
     # フィルタリング("speghetti"条件分岐をなくす) + ソート（リンクが踏まれた場合）
-    # tasks=SearchService::do_filter(tasks, name: @filter_name, status: @filter_status)
-    # tasks=SearchService::do_sort(tasks, params)
     tasks = tasks.name_like(@filter_name).status_search(@filter_status).alter_sort_by(params)
     # tasks = tasks.name_like(@filter_name).status_search(@filter_status)
     # tasks = tasks.created_sort(params["sort_created"]).deadline_sort(params["sort_deadline"]).priority_sort(params["sort_priority"])
@@ -34,10 +31,13 @@ class TasksController < ApplicationController
       redirect_to new_sessions_path, notice: t('notice.login_needed')
     else
       @task=Task.new
+#      @labels=Label.all.order(id: :asc)
     end
   end
 
   def confirm
+    byebug
+
     unless @current_user
       redirect_to new_sessions_path, notice: t('notice.login_needed')
     else
@@ -57,12 +57,20 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+#      @labels=Label.all.order(id: :asc)
+  end
+
   def update
     if @task.update(task_params)
       redirect_to task_path, notice: t('tasks.msg_update_success')
     else
       render :edit
     end
+  end
+
+  def show
+#      @labels=Label.all.order(id: :asc)
   end
 
   def destroy
@@ -80,7 +88,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority, :status, :user_id)
+    params.require(:task).permit(:name, :description, :deadline, :priority, :status, :user_id, label_ids: [])
   end
 
   def do_auth

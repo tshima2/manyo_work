@@ -21,6 +21,7 @@ en:
     label_confirm: 'Confirm Task'            
     label_name: 'Name'
     label_description: 'Description'
+    label_label: 'ラベル'    
     label_deadline: 'Deadline'
     label_priority: 'Priority'
     label_status: 'Status'
