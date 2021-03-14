@@ -35,7 +35,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示され、ステータスも登録ができる' do
-        # 1. new_task_pathに遷移する（新規作成ページに遷移する）
+        # 1.新規作成ページに遷移する
         visit new_task_path
         sleep(0.5)
 
