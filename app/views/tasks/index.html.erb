@@ -4,6 +4,7 @@
 
 <%= form_with(scope: :filter, local: true, url: tasks_path, method: :get) do |form| %>
 <div class="input-group-sm">
+
   <div class="input-group-prepend">  
       ステータスを選択:
       <select name="filter[status]" id="index_task_status" readonly>
@@ -13,12 +14,27 @@
 	<option value="3" <%= 'selected' if @filter_status.present? && @filter_status=="3" %>>完了</option>    
       </select>
   </div>
+
+  <div class="input-group-append">  
+      ラベルを選択:
+      <select name="filter[label]" id="index_task_label" readonly>
+	<option value="" <%= 'selected' if @filter_label.present? && @filter_label=="" %>></option>
+	<% @label_names.each do |s| %>
+	<option value='<%= s.id %>' <%= 'selected' if @filter_label.present? && @filter_label==s.id.to_s %>>
+	  <%= s.name %>
+	</option>	
+	<% end %>
+      </select>
+  </div>
+  
   <div class="input-group-append">タスク名称の一部を入力:
     <%= content_tag(:input, '', type:'text', name:'filter[name]', id: 'index_task_name', value: (@filter_name if @filter_name.present?) ) %>
   </div>
+  
   <div class="input-group-append">
     <input type="submit" value="絞り込み" id="index_filter_submit" class="btn btn-info" />
   </div>    
+
 </div>
 <% end %>
 
