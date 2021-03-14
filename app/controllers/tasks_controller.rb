@@ -8,22 +8,26 @@ class TasksController < ApplicationController
     end
 
     # 絞り込み用ボタンが押された場合
-    if params["filter"] && params["filter"]["name"].present?
-      @filter_name = params["filter"]["name"]
-    end
     if params["filter"] && params["filter"]["status"].present?
       @filter_status = params["filter"]["status"]
+    end
+    if params["filter"] && params["filter"]["label"].present?
+      @filter_label = params["filter"]["label"]
+    end
+    if params["filter"] && params["filter"]["name"].present?
+      @filter_name = params["filter"]["name"]
     end
 
     tasks=@current_user.tasks
 
     # フィルタリング("speghetti"条件分岐をなくす) + ソート（リンクが踏まれた場合）
-    tasks = tasks.name_like(@filter_name).status_search(@filter_status).alter_sort_by(params)
-    # tasks = tasks.name_like(@filter_name).status_search(@filter_status)
+    tasks = tasks.name_like(@filter_name).status_search(@filter_status).label_search(@filter_label).alter_sort_by(params)
+    # tasks = tasks.name_like(@filter_name).status_search(@filter_status).label_search(@filter_label)
     # tasks = tasks.created_sort(params["sort_created"]).deadline_sort(params["sort_deadline"]).priority_sort(params["sort_priority"])
 
     # ページネーション
     @tasks=tasks.page(params[:page]).per(20)
+    @label_names=Label.all.order(id: :asc)
   end
 
   def new
@@ -36,8 +40,6 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    byebug
-
     unless @current_user
       redirect_to new_sessions_path, notice: t('notice.login_needed')
     else
