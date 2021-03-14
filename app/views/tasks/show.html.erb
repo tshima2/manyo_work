@@ -3,7 +3,7 @@
 <p><%= t('tasks.label_name') %>：<%= @task.name %></p>
 <p><%= t('tasks.label_label') %>：
 <% @task.labels.each do |label| %>
-<span class="label label-info"><%= label.name %></span>
+<span class="label label-primary"><%= label.name %></span>
 <% end %>
 </p>
 <p><%= t('tasks.label_description') %>: <%= @task.description %></p>
