@@ -10,8 +10,9 @@
 <p><%= t('tasks.label_description') %>: <%= @task.description %></p>
 
 <p><%= t('tasks.label_label') %>:
-  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) do |b| %>
-  <%= b.label { b.check_box + "<span class='label label-info'>".html_safe() + b.text + "</span>".html_safe() } %>
+  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) do |box| %>
+<!--  <%= box.label { "<span class='label label-info'>".html_safe() + box.text + "</span>".html_safe() } if @task.label_ids.include?(box.value.to_i) %>-->
+  <%= box.label { box.check_box + "<span class='label label-info'>".html_safe() + box.text + "</span>".html_safe() } %>    
   <% end %>
 </p>
 
