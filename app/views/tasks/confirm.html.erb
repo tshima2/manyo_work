@@ -8,6 +8,14 @@
   <%= form.hidden_field :status %>
 <p><%= t('tasks.label_name') %>：<%= @task.name %></p>
 <p><%= t('tasks.label_description') %>: <%= @task.description %></p>
+
+<p><%= t('tasks.label_label') %>:
+  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) do |box| %>
+<!--  <%= box.label { "<span class='label label-info'>".html_safe() + box.text + "</span>".html_safe() } if @task.label_ids.include?(box.value.to_i) %>-->
+  <%= box.label { box.check_box + "<span class='label label-info'>".html_safe() + box.text + "</span>".html_safe() } %>    
+  <% end %>
+</p>
+
 <p><%= t('tasks.label_deadline') %>: <%= @task.deadline %></p>
 <p><%= t('tasks.label_priority') %>: <%= @task.priority %></p>
 <p><%= t('tasks.label_status') %>: <%= case @task.status when nil then '' when 1 then '未着手' when 2 then '着手中' when 3 then '完了' else '' end %>

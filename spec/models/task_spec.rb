@@ -74,6 +74,17 @@ RSpec.describe Task, type: :model do
         end
       end
 
+      context 'scopeメソッドで指定されたラベルの貼られたタスクを検索できる' do
+        it 'label_search' do
+          la=FactoryBot.create(:label)
+          lg=FactoryBot.create(:labelling, label: la, task: @task)
+
+#          label_id, task_count = Labelling.group(:label_id).count(:task_id).first
+          expect(Task.label_search(la.id).count).to eq 1
+          expect(Task.label_search(la.id).first.id).to eq @task.id
+        end
+      end
+
     end
   end
 end

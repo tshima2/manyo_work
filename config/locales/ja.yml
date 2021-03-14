@@ -21,6 +21,7 @@ ja:
     label_name: 'タスク名称'
     label_confirm: '確認'    
     label_description: 'タスク説明'
+    label_label: 'ラベル'
     label_deadline: '終了期限'
     label_priority: '優先順位'
     label_status: 'ステータス'    
